@@ -1,7 +1,7 @@
 /* ========================================
    🌟用钱买快乐🌟
    style.css
-   الستايل العام
+   الستايل العام للصفحة الرئيسية
    ======================================== */
 
 * {
@@ -14,6 +14,10 @@
     --border: #222222;
     --secondary: #777777;
     --button-bg: #ffffff;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
@@ -34,11 +38,12 @@ body {
 
 
 /* ========================================
-   الصفحة الرئيسية
+   🏠 الصفحة الرئيسية
    ======================================== */
 
 .home {
     width: min(900px, 92%);
+
     min-height: 100vh;
 
     margin: auto;
@@ -48,47 +53,56 @@ body {
 }
 
 
-/* العنوان */
+/* ========================================
+   🌟 العنوان
+   ======================================== */
 
 .main-title {
     padding: 35px 10px 25px;
 
     text-align: center;
 
+    color: var(--text);
+
     font-size: 28px;
+
     font-weight: 600;
 }
 
 
-/* الغرف */
+/* ========================================
+   🚪 الغرف
+   ======================================== */
 
 .rooms {
     flex: 1;
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap: 25px;
 
     align-content: center;
 
-    padding: 20px 0 80px;
+    padding: 20px 0 90px;
 }
 
-
-/* زر الغرفة */
 
 .room {
     min-height: 170px;
 
     border: 2px solid var(--border);
+
     border-radius: 18px;
 
     background: var(--button-bg);
+
     color: var(--text);
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
@@ -96,18 +110,28 @@ body {
 
     gap: 10px;
 
+    font-family: inherit;
+
     font-size: 17px;
 
     cursor: pointer;
 
     transition:
         transform 0.15s ease,
-        background 0.2s ease;
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
+
 
 .room-icon {
     font-size: 42px;
 }
+
+
+.room strong {
+    font-weight: 600;
+}
+
 
 .room:active {
     transform: scale(0.96);
@@ -115,7 +139,7 @@ body {
 
 
 /* ========================================
-   الشريط السفلي
+   🧭 الشريط السفلي
    ======================================== */
 
 .bottom-nav {
@@ -135,23 +159,46 @@ body {
 
     align-items: center;
     justify-content: space-around;
+
+    z-index: 100;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
+
 .bottom-nav button {
+    width: 50px;
+    height: 45px;
+
     border: none;
 
     background: transparent;
 
     color: var(--text);
 
-    font-size: 20px;
+    font-family: inherit;
+
+    font-size: 21px;
 
     cursor: pointer;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease;
+}
+
+
+.bottom-nav button:active {
+    transform: scale(0.9);
 }
 
 
 /* ========================================
-   الجوال
+   📱 الهاتف
    ======================================== */
 
 @media (max-width: 600px) {
@@ -160,19 +207,62 @@ body {
         width: 92%;
     }
 
+
     .main-title {
+        padding-top: 28px;
+
         font-size: 24px;
     }
 
+
     .rooms {
         gap: 15px;
+
+        padding-top: 10px;
+        padding-bottom: 85px;
     }
+
 
     .room {
         min-height: 140px;
+
+        border-radius: 15px;
+
+        font-size: 15px;
     }
+
 
     .room-icon {
         font-size: 34px;
     }
-  }
+
+
+    .bottom-nav {
+        height: 58px;
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    .rooms {
+        gap: 10px;
+    }
+
+
+    .room {
+        min-height: 125px;
+    }
+
+
+    .room-icon {
+        font-size: 30px;
+    }
+
+
+    .room strong {
+        font-size: 14px;
+    }
+
+}
