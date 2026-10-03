@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>نشر رسمة - 🌟用钱买快乐🌟</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="publish.css"
+    >
+
+</head>
+
+
+<body>
+
+    <header class="publish-header">
+
+        <h1>🎨 نشر رسمة</h1>
+
+    </header>
+
+
+    <main class="publish-container">
+
+
+        <section class="preview-area">
+
+            <div id="preview">
+
+                <span>🖼️</span>
+
+                <p>
+                    اختاري رسمة لعرضها هنا
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="publish-form">
+
+
+            <label for="imageInput">
+                اختيار رسمة
+            </label>
+
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+            >
+
+
+            <label for="description">
+                وصف الرسمة
+            </label>
+
+
+            <textarea
+                id="description"
+                placeholder="اكتبي شيئًا عن رسمتك..."
+                maxlength="500"
+            ></textarea>
+
+
+            <button
+                id="publishButton"
+                type="button"
+            >
+                نشر الرسمة
+            </button>
+
+
+            <p id="publishMessage"></p>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script src="../functions.js"></script>
+
+    <script src="publish.js"></script>
+
+
+</body>
+
+</html>
