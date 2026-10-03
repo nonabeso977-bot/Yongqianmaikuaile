@@ -1,21 +1,40 @@
 // ========================================
 // 🌟用钱买快乐🌟
 // drawing-tools.js
-// أدوات الرسم
+// نظام أدوات الرسم
 // ========================================
 
 
-const drawingTools = {
+// ========================================
+// حالة أدوات الرسم
+// ========================================
+
+const drawingToolState = {
 
     currentTool: "pen",
 
     color: "#222222",
 
-    brushSize: 5,
+    size: 5
 
-    pages: [],
+};
 
-    currentPage: 0
+
+// ========================================
+// الأدوات المتاحة
+// ========================================
+
+const DRAWING_TOOLS = {
+
+    pen: {
+        name: "القلم",
+        icon: "✏️"
+    },
+
+    eraser: {
+        name: "الممحاة",
+        icon: "🧽"
+    }
 
 };
 
@@ -26,53 +45,51 @@ const drawingTools = {
 
 function setDrawingTool(tool) {
 
-    const allowedTools = [
-        "pen",
-        "eraser"
-    ];
-
-    if (!allowedTools.includes(tool)) {
+    if (!DRAWING_TOOLS[tool]) {
         return;
     }
 
-    drawingTools.currentTool = tool;
+    drawingToolState.currentTool = tool;
 
 }
 
 
 // ========================================
-// الحصول على الأداة الحالية
+// معرفة الأداة الحالية
 // ========================================
 
 function getDrawingTool() {
 
-    return drawingTools.currentTool;
+    return drawingToolState.currentTool;
 
 }
 
 
 // ========================================
-// تغيير اللون
+// تغيير لون القلم
 // ========================================
 
 function setDrawingColor(color) {
 
-    if (!color) {
+    if (
+        typeof color !== "string" ||
+        !color
+    ) {
         return;
     }
 
-    drawingTools.color = color;
+    drawingToolState.color = color;
 
 }
 
 
 // ========================================
-// الحصول على اللون
+// معرفة اللون الحالي
 // ========================================
 
 function getDrawingColor() {
 
-    return drawingTools.color;
+    return drawingToolState.color;
 
 }
 
@@ -83,19 +100,18 @@ function getDrawingColor() {
 
 function setBrushSize(size) {
 
-    const number =
-        Number(size);
+    const value = Number(size);
 
-    if (!Number.isFinite(number)) {
+    if (!Number.isFinite(value)) {
         return;
     }
 
-    drawingTools.brushSize =
+    drawingToolState.size =
         Math.max(
             1,
             Math.min(
                 50,
-                number
+                value
             )
         );
 
@@ -103,141 +119,26 @@ function setBrushSize(size) {
 
 
 // ========================================
-// الحصول على حجم القلم
+// معرفة حجم القلم
 // ========================================
 
 function getBrushSize() {
 
-    return drawingTools.brushSize;
+    return drawingToolState.size;
 
 }
 
 
 // ========================================
-// إضافة صفحة جديدة
-// ========================================
-
-function addDrawingPage() {
-
-    drawingTools.pages.push({
-        image: null
-    });
-
-    drawingTools.currentPage =
-        drawingTools.pages.length - 1;
-
-    return drawingTools.currentPage;
-
-}
-
-
-// ========================================
-// الحصول على رقم الصفحة الحالية
-// ========================================
-
-function getCurrentPage() {
-
-    return drawingTools.currentPage;
-
-}
-
-
-// ========================================
-// الانتقال إلى صفحة
-// ========================================
-
-function goToDrawingPage(pageIndex) {
-
-    const index =
-        Number(pageIndex);
-
-    if (
-        !Number.isInteger(index) ||
-        index < 0 ||
-        index >= drawingTools.pages.length
-    ) {
-        return false;
-    }
-
-    drawingTools.currentPage = index;
-
-    return true;
-
-}
-
-
-// ========================================
-// عدد الصفحات
-// ========================================
-
-function getPageCount() {
-
-    return drawingTools.pages.length;
-
-}
-
-
-// ========================================
-// حفظ محتوى الصفحة الحالية
-// ========================================
-
-function saveDrawingPage(imageData) {
-
-    if (
-        drawingTools.pages.length === 0
-    ) {
-        addDrawingPage();
-    }
-
-    drawingTools.pages[
-        drawingTools.currentPage
-    ].image = imageData;
-
-}
-
-
-// ========================================
-// الحصول على محتوى الصفحة الحالية
-// ========================================
-
-function getCurrentPageData() {
-
-    if (
-        drawingTools.pages.length === 0
-    ) {
-        return null;
-    }
-
-    return drawingTools.pages[
-        drawingTools.currentPage
-    ].image;
-
-}
-
-
-// ========================================
-// حذف جميع الصفحات
-// ========================================
-
-function clearDrawingPages() {
-
-    drawingTools.pages = [];
-
-    drawingTools.currentPage = 0;
-
-}
-
-
-// ========================================
-// إعادة ضبط الأدوات
+// إعادة الأدوات للوضع الأساسي
 // ========================================
 
 function resetDrawingTools() {
 
-    drawingTools.currentTool = "pen";
+    drawingToolState.currentTool = "pen";
 
-    drawingTools.color = "#222222";
+    drawingToolState.color = "#222222";
 
-    drawingTools.brushSize = 5;
+    drawingToolState.size = 5;
 
-      }
+}
