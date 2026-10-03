@@ -5,8 +5,13 @@
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    loadTheme();
+
     setupPublish();
+
 });
+
 
 let selectedImage = null;
 
