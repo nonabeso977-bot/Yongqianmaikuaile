@@ -6,6 +6,7 @@
 
     <title>الإعدادات - 🌟用钱买快乐🌟</title>
 
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="settings.css">
 </head>
 
@@ -15,7 +16,6 @@
         <h1>⚙️ الإعدادات</h1>
     </header>
 
-
     <main class="settings">
 
         <section class="setting-group">
@@ -23,12 +23,54 @@
             <h2>🎨 المظهر</h2>
 
             <label class="setting-item">
+                <span>الثيم</span>
+
+                <select id="themeSelect">
+
+                    <option value="default">
+                        الأبيض
+                    </option>
+
+                    <option value="pink">
+                        الوردي
+                    </option>
+
+                    <option value="purple">
+                        البنفسجي
+                    </option>
+
+                    <option value="blue">
+                        الأزرق
+                    </option>
+
+                    <option value="green">
+                        الأخضر
+                    </option>
+
+                    <option value="peach">
+                        الخوخي
+                    </option>
+
+                </select>
+            </label>
+
+            <label class="setting-item">
                 <span>حجم الخط</span>
 
                 <select id="fontSize">
-                    <option value="small">صغير</option>
-                    <option value="medium" selected>متوسط</option>
-                    <option value="large">كبير</option>
+
+                    <option value="small">
+                        صغير
+                    </option>
+
+                    <option value="medium" selected>
+                        متوسط
+                    </option>
+
+                    <option value="large">
+                        كبير
+                    </option>
+
                 </select>
             </label>
 
@@ -40,13 +82,17 @@
             <h2>🔔 الإشعارات</h2>
 
             <label class="setting-item">
-                <span>تفعيل الإشعارات</span>
+
+                <span>
+                    تفعيل الإشعارات
+                </span>
 
                 <input
                     type="checkbox"
                     id="notifications"
                     checked
                 >
+
             </label>
 
         </section>
@@ -56,7 +102,11 @@
 
             <h2>👤 الحساب</h2>
 
-            <button id="clearData" class="danger-button">
+            <button
+                id="clearData"
+                class="danger-button"
+                type="button"
+            >
                 حذف البيانات المحلية
             </button>
 
@@ -69,6 +119,7 @@
 
 
     <script src="../functions.js"></script>
+    <script src="../themes.js"></script>
     <script src="settings.js"></script>
 
 </body>
