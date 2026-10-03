@@ -9,7 +9,7 @@
 // تحويل Canvas إلى صورة
 // ========================================
 
-function getCanvasImage(canvas) {
+function canvasToImage(canvas) {
 
     if (!canvas) {
         return null;
@@ -33,7 +33,7 @@ function saveCurrentDrawingPage(canvas) {
     }
 
     const image =
-        getCanvasImage(canvas);
+        canvasToImage(canvas);
 
     saveDrawingPage(image);
 
@@ -43,25 +43,30 @@ function saveCurrentDrawingPage(canvas) {
 
 
 // ========================================
-// حفظ جميع الصفحات
+// جمع صور جميع الصفحات
 // ========================================
 
-function getAllDrawingPages() {
+function collectDrawingPages() {
 
     const pages = [];
 
-    const total =
+    const pageCount =
         getDrawingPageCount();
 
     for (
         let index = 0;
-        index < total;
+        index < pageCount;
         index++
     ) {
 
-        pages.push(
-            getDrawingPageImage(index)
-        );
+        const image =
+            getDrawingPageImage(index);
+
+        if (image) {
+
+            pages.push(image);
+
+        }
 
     }
 
@@ -71,7 +76,7 @@ function getAllDrawingPages() {
 
 
 // ========================================
-// حفظ الرسمة كاملة في التخزين المحلي
+// حفظ الرسمة محليًا
 // ========================================
 
 function saveDrawingLocally(canvas) {
@@ -82,18 +87,22 @@ function saveDrawingLocally(canvas) {
 
     saveCurrentDrawingPage(canvas);
 
-    const pages =
-        getAllDrawingPages();
+    const drawing = {
+
+        pages:
+            collectDrawingPages(),
+
+        currentPage:
+            getCurrentDrawingPage(),
+
+        savedAt:
+            new Date().toISOString()
+
+    };
 
     saveData(
         "currentDrawing",
-        {
-            pages: pages,
-            currentPage:
-                getCurrentDrawingPage(),
-            date:
-                new Date().toISOString()
-        }
+        drawing
     );
 
     return true;
@@ -128,7 +137,7 @@ function deleteSavedDrawing() {
 
 
 // ========================================
-// تصدير الرسمة كصورة
+// تصدير Canvas كصورة
 // ========================================
 
 function downloadDrawing(canvas) {
@@ -138,9 +147,7 @@ function downloadDrawing(canvas) {
     }
 
     const image =
-        canvas.toDataURL(
-            "image/png"
-        );
+        canvasToImage(canvas);
 
     const link =
         document.createElement("a");
@@ -150,7 +157,11 @@ function downloadDrawing(canvas) {
     link.download =
         "my-drawing.png";
 
+    document.body.appendChild(link);
+
     link.click();
+
+    link.remove();
 
     return true;
 
