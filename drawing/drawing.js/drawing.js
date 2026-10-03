@@ -5,9 +5,9 @@
 // ========================================
 
 
-let canvas;
+let canvas = null;
 
-let ctx;
+let ctx = null;
 
 let isDrawing = false;
 
@@ -34,30 +34,31 @@ document.addEventListener(
 
         setupCanvas();
 
-        setupDrawingTools();
+        setupDrawingEvents();
 
-        setupPageControls();
+        setupToolEvents();
 
-        setupSaveControls();
+        setupPageEvents();
 
-        initializeDrawingCanvas();
+        setupSaveEvents();
+
+        initializeDrawingPages();
+
+        updatePageIndicator();
+
+        updateActiveTool();
 
     }
 );
 
 
 // ========================================
-// إعداد حجم Canvas
+// إعداد Canvas
 // ========================================
 
 function setupCanvas() {
 
     resizeCanvas();
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
 
 }
 
@@ -72,40 +73,253 @@ function resizeCanvas() {
         return;
     }
 
-    const oldImage =
-        canvas.width > 0 &&
-        canvas.height > 0
-            ? canvas.toDataURL("image/png")
-            : null;
+    const oldWidth =
+        canvas.width;
 
-    const width =
+    const oldHeight =
+        canvas.height;
+
+    const newWidth =
         canvas.clientWidth;
 
-    const height =
+    const newHeight =
         canvas.clientHeight;
 
-    canvas.width = width;
 
-    canvas.height = height;
+    if (
+        oldWidth === newWidth &&
+        oldHeight === newHeight
+    ) {
+        return;
+    }
 
-    if (oldImage) {
 
-        const image =
-            new Image();
+    let oldImage = null;
 
-        image.onload = () => {
 
-            ctx.drawImage(
-                image,
-                0,
-                0
+    if (
+        oldWidth > 0 &&
+        oldHeight > 0
+    ) {
+
+        oldImage =
+            canvas.toDataURL(
+                "image/png"
             );
 
-        };
+    }
 
-        image.src = oldImage;
+
+    canvas.width =
+        newWidth;
+
+    canvas.height =
+        newHeight;
+
+
+    if (!oldImage) {
+        return;
+    }
+
+
+    const image =
+        new Image();
+
+
+    image.onload = () => {
+
+        ctx.drawImage(
+            image,
+            0,
+            0,
+            newWidth,
+            newHeight
+        );
+
+    };
+
+
+    image.src =
+        oldImage;
+
+}
+
+
+// ========================================
+// مراقبة تغيير حجم الشاشة
+// ========================================
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        saveCurrentDrawingPage(
+            canvas
+        );
+
+        resizeCanvas();
 
     }
+);
+
+
+// ========================================
+// أحداث الرسم
+// ========================================
+
+function setupDrawingEvents() {
+
+    setupMouseEvents();
+
+    setupTouchEvents();
+
+}
+
+
+// ========================================
+// الماوس
+// ========================================
+
+function setupMouseEvents() {
+
+    canvas.addEventListener(
+        "mousedown",
+        (event) => {
+
+            const position =
+                getPointerPosition(event);
+
+            startDrawing(
+                position.x,
+                position.y
+            );
+
+        }
+    );
+
+
+    canvas.addEventListener(
+        "mousemove",
+        (event) => {
+
+            const position =
+                getPointerPosition(event);
+
+            draw(
+                position.x,
+                position.y
+            );
+
+        }
+    );
+
+
+    canvas.addEventListener(
+        "mouseup",
+        stopDrawing
+    );
+
+
+    canvas.addEventListener(
+        "mouseleave",
+        stopDrawing
+    );
+
+}
+
+
+// ========================================
+// اللمس
+// ========================================
+
+function setupTouchEvents() {
+
+    canvas.addEventListener(
+        "touchstart",
+        (event) => {
+
+            event.preventDefault();
+
+            const touch =
+                event.touches[0];
+
+            const position =
+                getPointerPosition(touch);
+
+            startDrawing(
+                position.x,
+                position.y
+            );
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    canvas.addEventListener(
+        "touchmove",
+        (event) => {
+
+            event.preventDefault();
+
+            const touch =
+                event.touches[0];
+
+            const position =
+                getPointerPosition(touch);
+
+            draw(
+                position.x,
+                position.y
+            );
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    canvas.addEventListener(
+        "touchend",
+        (event) => {
+
+            event.preventDefault();
+
+            stopDrawing();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+}
+
+
+// ========================================
+// موقع المؤشر داخل Canvas
+// ========================================
+
+function getPointerPosition(event) {
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    return {
+
+        x:
+            event.clientX -
+            rect.left,
+
+        y:
+            event.clientY -
+            rect.top
+
+    };
 
 }
 
@@ -137,6 +351,7 @@ function draw(x, y) {
     if (!isDrawing) {
         return;
     }
+
 
     ctx.lineWidth =
         getBrushSize();
@@ -201,153 +416,9 @@ function stopDrawing() {
     ctx.globalCompositeOperation =
         "source-over";
 
-    saveCurrentDrawingPage(canvas);
 
-}
-
-
-// ========================================
-// تحويل موقع الماوس/اللمس
-// ========================================
-
-function getCanvasPosition(event) {
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    return {
-
-        x:
-            event.clientX -
-            rect.left,
-
-        y:
-            event.clientY -
-            rect.top
-
-    };
-
-}
-
-
-// ========================================
-// أحداث الماوس
-// ========================================
-
-function setupMouseDrawing() {
-
-    canvas.addEventListener(
-        "mousedown",
-        (event) => {
-
-            const position =
-                getCanvasPosition(event);
-
-            startDrawing(
-                position.x,
-                position.y
-            );
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "mousemove",
-        (event) => {
-
-            const position =
-                getCanvasPosition(event);
-
-            draw(
-                position.x,
-                position.y
-            );
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "mouseup",
-        stopDrawing
-    );
-
-
-    canvas.addEventListener(
-        "mouseleave",
-        stopDrawing
-    );
-
-}
-
-
-// ========================================
-// أحداث اللمس
-// ========================================
-
-function setupTouchDrawing() {
-
-    canvas.addEventListener(
-        "touchstart",
-        (event) => {
-
-            event.preventDefault();
-
-            const touch =
-                event.touches[0];
-
-            const position =
-                getCanvasPosition(touch);
-
-            startDrawing(
-                position.x,
-                position.y
-            );
-
-        },
-        {
-            passive: false
-        }
-    );
-
-
-    canvas.addEventListener(
-        "touchmove",
-        (event) => {
-
-            event.preventDefault();
-
-            const touch =
-                event.touches[0];
-
-            const position =
-                getCanvasPosition(touch);
-
-            draw(
-                position.x,
-                position.y
-            );
-
-        },
-        {
-            passive: false
-        }
-    );
-
-
-    canvas.addEventListener(
-        "touchend",
-        (event) => {
-
-            event.preventDefault();
-
-            stopDrawing();
-
-        },
-        {
-            passive: false
-        }
+    saveCurrentDrawingPage(
+        canvas
     );
 
 }
@@ -357,7 +428,7 @@ function setupTouchDrawing() {
 // أدوات الرسم
 // ========================================
 
-function setupDrawingTools() {
+function setupToolEvents() {
 
     const pen =
         document.getElementById(
@@ -439,18 +510,14 @@ function setupDrawingTools() {
 
     clear.addEventListener(
         "click",
-        () => {
-
-            clearCanvas();
-
-        }
+        clearCanvas
     );
 
 }
 
 
 // ========================================
-// تحديث الأداة النشطة
+// الأداة النشطة
 // ========================================
 
 function updateActiveTool() {
@@ -502,7 +569,7 @@ function updateActiveTool() {
 
 
 // ========================================
-// مسح اللوحة
+// مسح Canvas
 // ========================================
 
 function clearCanvas() {
@@ -516,12 +583,7 @@ function clearCanvas() {
         return;
     }
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    clearCanvasWithoutConfirm();
 
     saveCurrentDrawingPage(
         canvas
@@ -531,10 +593,26 @@ function clearCanvas() {
 
 
 // ========================================
-// التحكم بالصفحات
+// مسح بدون تأكيد
 // ========================================
 
-function setupPageControls() {
+function clearCanvasWithoutConfirm() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+}
+
+
+// ========================================
+// الصفحات
+// ========================================
+
+function setupPageEvents() {
 
     const newPage =
         document.getElementById(
@@ -621,12 +699,15 @@ function loadCurrentPage() {
     const imageData =
         getDrawingPageImage();
 
+
     if (!imageData) {
         return;
     }
 
+
     const image =
         new Image();
+
 
     image.onload = () => {
 
@@ -640,24 +721,9 @@ function loadCurrentPage() {
 
     };
 
+
     image.src =
         imageData;
-
-}
-
-
-// ========================================
-// مسح بدون رسالة تأكيد
-// ========================================
-
-function clearCanvasWithoutConfirm() {
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
 
 }
 
@@ -666,12 +732,13 @@ function clearCanvasWithoutConfirm() {
 // الحفظ
 // ========================================
 
-function setupSaveControls() {
+function setupSaveEvents() {
 
     const saveButton =
         document.getElementById(
             "saveDrawing"
         );
+
 
     saveButton.addEventListener(
         "click",
@@ -687,24 +754,5 @@ function setupSaveControls() {
 
         }
     );
-
-}
-
-
-// ========================================
-// تشغيل Canvas
-// ========================================
-
-function initializeDrawingCanvas() {
-
-    setupMouseDrawing();
-
-    setupTouchDrawing();
-
-    initializeDrawingPages();
-
-    updatePageIndicator();
-
-    updateActiveTool();
 
 }
