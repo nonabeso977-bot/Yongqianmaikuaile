@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>حسابي - 🌟用钱买快乐🌟</title>
 
-    <link rel="stylesheet" href="profile.css">
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="profile.css"
+    >
+
 </head>
 
+
 <body>
+
 
     <header class="profile-header">
 
@@ -17,56 +34,99 @@
             👤
         </div>
 
+
         <div class="profile-info">
-            <h1 id="username">فنان جديد</h1>
-            <p id="bio">مرحبًا في عالمي الفني 🎨</p>
+
+            <h1 id="username">
+                فنان جديد
+            </h1>
+
+            <p id="bio">
+                مرحبًا في عالمي الفني 🎨
+            </p>
+
         </div>
 
     </header>
 
 
+
     <main class="profile-content">
 
-        <section class="badges-section">
 
-            <h2>🏅 شاراتي</h2>
+        <section class="stats-section">
 
-            <div class="badges">
+            <div class="stat">
 
-                <div class="badge">
-                    <span>🎨</span>
-                    <strong>فنان</strong>
-                    <small>10 نجوم</small>
-                </div>
+                <strong id="starsCount">
+                    0
+                </strong>
 
-                <div class="badge">
-                    <span>🌟</span>
-                    <strong>فان كوخ</strong>
-                    <small>20 نجمة</small>
-                </div>
+                <span>
+                    ⭐ النجوم
+                </span>
 
-                <div class="badge locked">
-                    <span>🔒</span>
-                    <strong>الشارة الثالثة</strong>
-                    <small>مقفلة</small>
-                </div>
+            </div>
 
-                <div class="badge locked">
-                    <span>🔒</span>
-                    <strong>الشارة الرابعة</strong>
-                    <small>مقفلة</small>
-                </div>
+
+            <div class="stat">
+
+                <strong id="drawingsCount">
+                    0
+                </strong>
+
+                <span>
+                    🎨 الرسومات
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong id="badgesCount">
+                    0
+                </strong>
+
+                <span>
+                    🏅 الأوسمة
+                </span>
 
             </div>
 
         </section>
 
 
+
+        <section class="badges-section">
+
+            <h2>
+                🏅 أوسمتي
+            </h2>
+
+
+            <div
+                id="badges"
+                class="badges"
+            >
+
+            </div>
+
+        </section>
+
+
+
         <section class="gallery-section">
 
-            <h2>🎨 رسوماتي</h2>
+            <h2>
+                🎨 رسوماتي
+            </h2>
 
-            <div id="gallery" class="gallery">
+
+            <div
+                id="gallery"
+                class="gallery"
+            >
 
                 <div class="empty-gallery">
                     لا توجد رسومات بعد.
@@ -76,11 +136,20 @@
 
         </section>
 
+
     </main>
 
 
+
     <script src="../functions.js"></script>
+
+    <script src="../themes.js"></script>
+
+    <script src="../badges.js"></script>
+
     <script src="profile.js"></script>
 
+
 </body>
+
 </html>
