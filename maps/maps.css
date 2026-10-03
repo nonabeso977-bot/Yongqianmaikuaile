@@ -1,0 +1,111 @@
+/* ========================================
+   🗺️ 用钱买快乐
+   maps.css
+   ماب: احزر
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #ffffff;
+    color: #222;
+    font-family: Arial, sans-serif;
+    direction: rtl;
+}
+
+
+/* ========================================
+   العنوان
+   ======================================== */
+
+header {
+    padding: 25px 20px 10px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+
+/* ========================================
+   مساحة الماب
+   ======================================== */
+
+.maps-container {
+    width: min(900px, 90%);
+    margin: 35px auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+
+/* ========================================
+   غرفة الماب
+   ======================================== */
+
+.map-room {
+    min-height: 150px;
+
+    border: 2px solid #222;
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    font-size: 17px;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+.map-room span {
+    font-size: 38px;
+}
+
+.map-room strong {
+    font-weight: 600;
+}
+
+
+/* ========================================
+   الضغط
+   ======================================== */
+
+.map-room:active {
+    transform: scale(0.96);
+}
+
+
+/* ========================================
+   الجوال
+   ======================================== */
+
+@media (max-width: 600px) {
+
+    .maps-container {
+        width: 90%;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .map-room {
+        min-height: 120px;
+    }
+
+}
