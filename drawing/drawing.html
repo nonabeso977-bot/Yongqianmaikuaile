@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>🎨 الرسم - 🌟用钱买快乐🌟</title>
+
+    <link
+        rel="stylesheet"
+        href="../style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="drawing.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- عنوان الصفحة -->
+
+    <header class="drawing-header">
+
+        <h1>
+            🎨 الرسم
+        </h1>
+
+    </header>
+
+
+
+    <!-- مساحة الرسم -->
+
+    <main class="drawing-page">
+
+
+        <!-- شريط الأدوات -->
+
+        <section
+            class="drawing-toolbar"
+            aria-label="أدوات الرسم"
+        >
+
+
+            <!-- القلم -->
+
+            <button
+                id="penTool"
+                class="tool-button active"
+                type="button"
+                aria-label="القلم"
+            >
+                ✏️
+            </button>
+
+
+
+            <!-- الممحاة -->
+
+            <button
+                id="eraserTool"
+                class="tool-button"
+                type="button"
+                aria-label="الممحاة"
+            >
+                🧽
+            </button>
+
+
+
+            <!-- اللون -->
+
+            <label
+                class="color-tool"
+                for="colorPicker"
+                aria-label="اختيار اللون"
+            >
+
+                🎨
+
+                <input
+                    id="colorPicker"
+                    type="color"
+                    value="#222222"
+                >
+
+            </label>
+
+
+
+            <!-- حجم الفرشاة -->
+
+            <label
+                class="size-tool"
+                for="brushSize"
+            >
+
+                📏
+
+                <input
+                    id="brushSize"
+                    type="range"
+                    min="1"
+                    max="50"
+                    value="5"
+                >
+
+            </label>
+
+
+
+            <!-- مسح الصفحة -->
+
+            <button
+                id="clearCanvas"
+                class="tool-button"
+                type="button"
+                aria-label="مسح الصفحة"
+            >
+                🗑️
+            </button>
+
+
+
+            <!-- صفحة جديدة -->
+
+            <button
+                id="newPage"
+                class="tool-button"
+                type="button"
+                aria-label="صفحة جديدة"
+            >
+                📄
+            </button>
+
+
+
+            <!-- حفظ -->
+
+            <button
+                id="saveDrawing"
+                class="tool-button"
+                type="button"
+                aria-label="حفظ الرسمة"
+            >
+                💾
+            </button>
+
+
+        </section>
+
+
+
+        <!-- اللوحة -->
+
+        <section class="canvas-area">
+
+            <canvas
+                id="drawingCanvas"
+            ></canvas>
+
+        </section>
+
+
+
+        <!-- معلومات الصفحات -->
+
+        <section
+            class="page-controls"
+            aria-label="صفحات الرسم"
+        >
+
+            <button
+                id="previousPage"
+                type="button"
+                aria-label="الصفحة السابقة"
+            >
+                ◀
+            </button>
+
+
+            <span id="pageIndicator">
+                صفحة 1
+            </span>
+
+
+            <button
+                id="nextPage"
+                type="button"
+                aria-label="الصفحة التالية"
+            >
+                ▶
+            </button>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- الملفات المشتركة -->
+
+    <script src="../functions.js"></script>
+
+    <script src="../themes.js"></script>
+
+
+    <!-- ملفات نظام الرسم -->
+
+    <script src="drawing-tools.js"></script>
+
+    <script src="drawing-pages.js"></script>
+
+    <script src="drawing-save.js"></script>
+
+    <script src="drawing.js"></script>
+
+
+</body>
+
+</html>
