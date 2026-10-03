@@ -1,0 +1,126 @@
+/* ========================================
+   ⚙️ settings.css
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+
+    direction: rtl;
+}
+
+header {
+    padding: 30px 20px 15px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+
+/* الإعدادات */
+
+.settings {
+    width: min(700px, 92%);
+    margin: 20px auto 50px;
+}
+
+
+/* مجموعات الإعدادات */
+
+.setting-group {
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    border: 2px solid #222;
+    border-radius: 16px;
+}
+
+.setting-group h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+
+/* عنصر الإعداد */
+
+.setting-item {
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+/* القوائم */
+
+.setting-item select {
+    padding: 8px 12px;
+
+    border: 2px solid #222;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    font-size: 15px;
+}
+
+
+/* زر الحذف */
+
+.danger-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 2px solid #222;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+.danger-button:active {
+    transform: scale(0.98);
+}
+
+
+/* رسالة الإعدادات */
+
+#settingsMessage {
+    min-height: 25px;
+
+    text-align: center;
+
+    color: #555;
+}
+
+
+/* الجوال */
+
+@media (max-width: 600px) {
+
+    .settings {
+        width: 94%;
+    }
+
+    .setting-group {
+        padding: 16px;
+    }
+          }
