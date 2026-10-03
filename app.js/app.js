@@ -1,26 +1,132 @@
 // ========================================
 // 🌟用钱买快乐🌟
 // app.js
+// نظام الصفحة الرئيسية
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("🌟用钱买快乐🌟 يعمل بنجاح!");
 
     setupRooms();
+
+    setupBottomNavigation();
+
 });
 
 
-// إعداد غرف الصفحة الرئيسية
+// ========================================
+// 🚪 الغرف الرئيسية
+// ========================================
+
 function setupRooms() {
-    const rooms = document.querySelectorAll("[data-room]");
+
+    const rooms =
+        document.querySelectorAll(
+            "[data-room]"
+        );
+
 
     rooms.forEach((room) => {
-        room.addEventListener("click", () => {
-            const page = room.dataset.room;
 
-            if (page) {
-                goTo(page);
+        room.addEventListener(
+            "click",
+            () => {
+
+                const page =
+                    room.dataset.room;
+
+
+                if (page) {
+
+                    goTo(page);
+
+                }
+
             }
-        });
+        );
+
     });
+
+}
+
+
+// ========================================
+// 🧭 الشريط السفلي
+// ========================================
+
+function setupBottomNavigation() {
+
+    const buttons =
+        document.querySelectorAll(
+            "[data-nav]"
+        );
+
+
+    buttons.forEach((button) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const destination =
+                    button.dataset.nav;
+
+
+                navigateFromBottom(
+                    destination
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+// ========================================
+// 🔗 التنقل
+// ========================================
+
+function navigateFromBottom(
+    destination
+) {
+
+    switch (destination) {
+
+
+        case "settings":
+
+            goTo(
+                "settings/settings.html"
+            );
+
+            break;
+
+
+        case "publish":
+
+            goTo(
+                "publish/publish.html"
+            );
+
+            break;
+
+
+        case "profile":
+
+            goTo(
+                "profile/profile.html"
+            );
+
+            break;
+
+
+        default:
+
+            showMessage(
+                "الصفحة غير موجودة."
+            );
+
+    }
+
 }
