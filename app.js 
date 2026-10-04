@@ -7,42 +7,33 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     setupRooms();
-
     setupBottomNavigation();
 
 });
 
 
 // ========================================
-// 🚪 الغرف الرئيسية
+// 🚪 المابات الرئيسية
 // ========================================
 
 function setupRooms() {
 
     const rooms =
-        document.querySelectorAll(
-            "[data-room]"
-        );
+        document.querySelectorAll("[data-room]");
 
 
     rooms.forEach((room) => {
 
-        room.addEventListener(
-            "click",
-            () => {
+        room.addEventListener("click", () => {
 
-                const page =
-                    room.dataset.room;
+            const page =
+                room.dataset.room;
 
-
-                if (page) {
-
-                    goTo(page);
-
-                }
-
+            if (page) {
+                goTo(page);
             }
-        );
+
+        });
 
     });
 
@@ -56,27 +47,19 @@ function setupRooms() {
 function setupBottomNavigation() {
 
     const buttons =
-        document.querySelectorAll(
-            "[data-nav]"
-        );
+        document.querySelectorAll("[data-nav]");
 
 
     buttons.forEach((button) => {
 
-        button.addEventListener(
-            "click",
-            () => {
+        button.addEventListener("click", () => {
 
-                const destination =
-                    button.dataset.nav;
+            const destination =
+                button.dataset.nav;
 
+            navigateFromBottom(destination);
 
-                navigateFromBottom(
-                    destination
-                );
-
-            }
-        );
+        });
 
     });
 
@@ -87,45 +70,24 @@ function setupBottomNavigation() {
 // 🔗 التنقل
 // ========================================
 
-function navigateFromBottom(
-    destination
-) {
+function navigateFromBottom(destination) {
 
     switch (destination) {
 
-
         case "settings":
-
-            goTo(
-                "settings/settings.html"
-            );
-
+            goTo("settings/settings.html");
             break;
-
 
         case "publish":
-
-            goTo(
-                "publish/publish.html"
-            );
-
+            goTo("publish/publish.html");
             break;
-
 
         case "profile":
-
-            goTo(
-                "profile/profile.html"
-            );
-
+            goTo("profile/profile.html");
             break;
 
-
         default:
-
-            showMessage(
-                "الصفحة غير موجودة."
-            );
+            showMessage("الصفحة غير موجودة.");
 
     }
 
