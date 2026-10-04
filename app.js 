@@ -1,4 +1,4 @@
-// ========================================
+ // ========================================
 // 🌟用钱买快乐🌟
 // app.js
 // نظام الصفحة الرئيسية
@@ -74,17 +74,40 @@ function navigateFromBottom(destination) {
 
     switch (destination) {
 
-        case "settings":
-            goTo("settings/settings.html");
+        // 💬 الشات
+
+        case "chat":
+            goTo("chat/chat.html");
             break;
+
+
+        // ➕ الإضافة / النشر
 
         case "publish":
             goTo("publish/publish.html");
             break;
 
+
+        // 🖼️ المنشورات
+
+        case "posts":
+            goTo("posts/posts.html");
+            break;
+
+
+        // 👤 الحساب
+
         case "profile":
             goTo("profile/profile.html");
             break;
+
+
+        // ⚙️ الإعدادات
+
+        case "settings":
+            goTo("settings/settings.html");
+            break;
+
 
         default:
             showMessage("الصفحة غير موجودة.");
